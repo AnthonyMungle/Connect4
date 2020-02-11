@@ -22,8 +22,8 @@ public:
     Board(int blocks);
     std::string ShowBoard();
     int getPlayerTurn();
-    void updateBoard(char numberOfRows);
-    bool isValidMove(char rowToMove);
+    void updateBoard(int numberOfRows);
+    bool isValidMove(int rowToMove);
     bool hasWon();
 
 };

@@ -29,14 +29,14 @@ std::string Board::ShowBoard() {
     return stringBoard;
 }
 
-void Board::updateBoard(char rowToDrop) {
+void Board::updateBoard(int rowToDrop) {
     bool playerTurnOver = false;
-    if(playerTurn== 1) {
+    if (playerTurn == 1) {
         this->truePlayer = this->playerOne;
-    }else{
+    } else {
         this->truePlayer = this->playerTwo;
     }
-    while(playerTurnOver == false){
+    while (playerTurnOver == false) {
 
         if (isValidMove(rowToDrop)) {
             int row = rowToDrop - 1;
@@ -44,13 +44,13 @@ void Board::updateBoard(char rowToDrop) {
             for (int i = blocks - 1; i >= 0; i--) {
                 for (int j = blocks - 1; j >= 0; j--) {
 
-                    if (j == row && (board[i][j] != playerOne && board[i][j] != playerTwo )) {
+                    if (j == row && (board[i][j] != playerOne && board[i][j] != playerTwo)) {
                         board[i][j] = truePlayer;
                         playerTurnOver = true;
                         //Swaps turns
-                        if(playerTurn == 1 && !hasWon()){
+                        if (playerTurn == 1 && !hasWon()) {
                             playerTurn = 2;
-                        }else(playerTurn = 1);
+                        } else(playerTurn = 1);
 
                         return;
                     }
@@ -59,17 +59,42 @@ void Board::updateBoard(char rowToDrop) {
                 }
             }
         } else {
-            do{
-            std::cout << "Invalid move. Please make a different move!" << std::endl;
+            std::cout << "Invalid move!" << std::endl;
             std::cin >> rowToDrop;
-            }while(isValidMove(rowToDrop == false));
+            do {
+                if (isValidMove(rowToDrop)) {
+                    playerTurnOver = true;
+                } else {
+                    std::cout << "Invalid move. Please make a different move!" << std::endl;
+                    std::cin >> rowToDrop;
+                }
+            } while (playerTurnOver == false);
+
+            int row = rowToDrop - 1;
+
+            for (int i = blocks - 1; i >= 0; i--) {
+                for (int j = blocks - 1; j >= 0; j--) {
+
+                    if (j == row && (board[i][j] != playerOne && board[i][j] != playerTwo)) {
+                        board[i][j] = truePlayer;
+                        playerTurnOver = true;
+                        //Swaps turns
+                        if (playerTurn == 1 && !hasWon()) {
+                            playerTurn = 2;
+                        } else(playerTurn = 1);
+
+                        return;
+                    }
+                }
+            }
 
         }
     }
-
 }
 
-bool Board::isValidMove(char rowToMove) {
+
+
+bool Board::isValidMove(int rowToMove) {
     int amountInRow = 0;
     bool isCorrectMove = true;
     if(rowToMove > blocks) {
@@ -91,6 +116,7 @@ bool Board::isValidMove(char rowToMove) {
         }
     }
     if(amountInRow == blocks){
+        std::cout<<"yo"<<std::endl;
         isCorrectMove = false;
     }
 
