@@ -30,7 +30,6 @@ std::string Board::ShowBoard() {
 }
 
 void Board::updateBoard(int rowToDrop) {
-    this->columnChoice = rowToDrop;
     bool playerTurnOver = false;
     if (playerTurn == 1) {
         this->truePlayer = this->playerOne;
@@ -47,6 +46,8 @@ void Board::updateBoard(int rowToDrop) {
 
                     if (j == row && (board[i][j] != playerOne && board[i][j] != playerTwo)) {
                         board[i][j] = truePlayer;
+                        this->rowChoice = i;
+                        this->columnChoice = j;
                         playerTurnOver = true;
                         //Swaps turns
                         if(!hasWon()) {
@@ -82,6 +83,8 @@ void Board::updateBoard(int rowToDrop) {
 
                     if (j == row && (board[i][j] != playerOne && board[i][j] != playerTwo)) {
                         board[i][j] = truePlayer;
+                        this->rowChoice = i;
+                        this->columnChoice = j;
                         playerTurnOver = true;
                         //Swaps turns
                         if(!hasWon()) {
@@ -136,20 +139,27 @@ int Board::getPlayerTurn() {
 bool Board::hasWon() {
 
 
-    for (int i = blocks -1 ; i >= 0; i--) {
-        for (int j = blocks -1; j >= 0; j--) {
+    int i = rowChoice;
+    int j = columnChoice;
+    std::cout<<rowChoice;
+    std::cout<<columnChoice;
 
-            if(board[i][j] == truePlayer && board[i][j-1] == truePlayer && board[i][j-2] == truePlayer && board[i][j-3] == truePlayer ){
-                return true;
-            }
-            if(board[i][j] == truePlayer && board[i-1][j] == truePlayer && board[i-2][j] == truePlayer && board[i-3][j] == truePlayer ){
-                return true;
-            }
-            if(board[i][j] == truePlayer && board[i-1][j-1] == truePlayer && board[i-2][j-2] == truePlayer && board[i-3][j-3] == truePlayer ){
-                return true;
-            }
-        }
-    }
+
+                if ((j -3 >=0)&& (board[i][j] == truePlayer && board[i][j - 1] == truePlayer && board[i][j - 2] == truePlayer && //Win Right
+                    board[i][j - 3] == truePlayer)) {
+                    return true;
+                }
+                if ((j +3 <=5)&& (board[i][j] == truePlayer && board[i][j + 1] == truePlayer && board[i][j + 2] == truePlayer && //Win Left
+                    board[i][j + 3] == truePlayer)) {
+                    return true;
+                }
+                if ((i+3 <= 5) && (board[i][j] == truePlayer && board[i+1][j] == truePlayer && board[i+2][j] == truePlayer && //Down...up is irrelevant
+                    board[i+1][j] == truePlayer)) {
+                    return true;
+                }
+
+
+
 
     return false;
 }
