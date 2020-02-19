@@ -11,7 +11,7 @@
 class Board {
 
 private:
-    int columnChoice;
+    int columnChoice; //Might use if current win scenarios are too cumbersome (Currently cycling through the matrix each time)
     int blocks;
     int playerTurn;
     std::string playerOne = "[x]";

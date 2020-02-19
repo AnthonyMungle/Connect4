@@ -134,7 +134,7 @@ int Board::getPlayerTurn() {
 }
 
 bool Board::hasWon() {
-    
+
 
     for (int i = blocks -1 ; i >= 0; i--) {
         for (int j = blocks -1; j >= 0; j--) {
