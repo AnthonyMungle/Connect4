@@ -30,6 +30,7 @@ std::string Board::ShowBoard() {
 }
 
 void Board::updateBoard(int rowToDrop) {
+    this->columnChoice = rowToDrop;
     bool playerTurnOver = false;
     if (playerTurn == 1) {
         this->truePlayer = this->playerOne;
@@ -48,9 +49,11 @@ void Board::updateBoard(int rowToDrop) {
                         board[i][j] = truePlayer;
                         playerTurnOver = true;
                         //Swaps turns
-                        if (playerTurn == 1 && !hasWon()) {
-                            playerTurn = 2;
-                        } else(playerTurn = 1);
+                        if(!hasWon()) {
+                            if (playerTurn == 1) {
+                                playerTurn = 2;
+                            } else(playerTurn = 1);
+                        }
 
                         return;
                     }
@@ -61,12 +64,14 @@ void Board::updateBoard(int rowToDrop) {
         } else {
             std::cout << "Invalid move!" << std::endl;
             std::cin >> rowToDrop;
+            this->columnChoice = rowToDrop;
             do {
                 if (isValidMove(rowToDrop)) {
                     playerTurnOver = true;
                 } else {
                     std::cout << "Invalid move. Please make a different move!" << std::endl;
                     std::cin >> rowToDrop;
+                    this->columnChoice = rowToDrop;
                 }
             } while (playerTurnOver == false);
 
@@ -79,9 +84,11 @@ void Board::updateBoard(int rowToDrop) {
                         board[i][j] = truePlayer;
                         playerTurnOver = true;
                         //Swaps turns
-                        if (playerTurn == 1 && !hasWon()) {
-                            playerTurn = 2;
-                        } else(playerTurn = 1);
+                        if(!hasWon()) {
+                            if (playerTurn == 1) {
+                                playerTurn = 2;
+                            } else(playerTurn = 1);
+                        }
 
                         return;
                     }
@@ -116,7 +123,6 @@ bool Board::isValidMove(int rowToMove) {
         }
     }
     if(amountInRow == blocks){
-        std::cout<<"yo"<<std::endl;
         isCorrectMove = false;
     }
 
@@ -128,14 +134,22 @@ int Board::getPlayerTurn() {
 }
 
 bool Board::hasWon() {
+    
 
-    //Need winning statement return false for now.
-    for (int i = blocks - 1; i >= 0; i--) {
+    for (int i = blocks -1 ; i >= 0; i--) {
+        for (int j = blocks -1; j >= 0; j--) {
 
-        for (int j = blocks - 1; j >= 0; j--) {
+            if(board[i][j] == truePlayer && board[i][j-1] == truePlayer && board[i][j-2] == truePlayer && board[i][j-3] == truePlayer ){
+                return true;
+            }
+            if(board[i][j] == truePlayer && board[i-1][j] == truePlayer && board[i-2][j] == truePlayer && board[i-3][j] == truePlayer ){
+                return true;
+            }
+            if(board[i][j] == truePlayer && board[i-1][j-1] == truePlayer && board[i-2][j-2] == truePlayer && board[i-3][j-3] == truePlayer ){
+                return true;
+            }
         }
-
-        }
+    }
 
     return false;
 }

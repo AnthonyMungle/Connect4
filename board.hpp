@@ -11,6 +11,7 @@
 class Board {
 
 private:
+    int columnChoice;
     int blocks;
     int playerTurn;
     std::string playerOne = "[x]";

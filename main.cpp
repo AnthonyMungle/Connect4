@@ -19,6 +19,7 @@ int main() {
         game.updateBoard(choice);
         std::cout<<game.ShowBoard();
     }while(game.hasWon() == false);
+    std::cout<<"Congratulations Player"<< game.getPlayerTurn()<<" has Won!"<<std::endl;
     /*game.updateBoard(4);
     std::cout<<game.ShowBoard();
     game.updateBoard(4);
