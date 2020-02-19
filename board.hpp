@@ -12,7 +12,7 @@ class Board {
 
 private:
     int columnChoice;
-    int rowChoice; 
+    int rowChoice;
     int blocks;
     int playerTurn;
     std::string playerOne = "[x]";

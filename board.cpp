@@ -22,9 +22,17 @@ std::string Board::ShowBoard() {
         for (int j = 0; j < board[i].size(); j++)
         {
             stringBoard.append(board[i][j]);
+
         }
         stringBoard.append("\n");
     }
+    stringBoard.append(" ");
+    for(int k = 1; k <= blocks; k++){
+
+        stringBoard.append(std::to_string(k));
+        stringBoard.append("  ");
+    }
+    stringBoard.append("\n");
 
     return stringBoard;
 }
@@ -141,8 +149,6 @@ bool Board::hasWon() {
 
     int i = rowChoice;
     int j = columnChoice;
-    std::cout<<rowChoice;
-    std::cout<<columnChoice;
 
 
                 if ((j -3 >=0)&& (board[i][j] == truePlayer && board[i][j - 1] == truePlayer && board[i][j - 2] == truePlayer && //Win Right
@@ -154,7 +160,7 @@ bool Board::hasWon() {
                     return true;
                 }
                 if ((i+3 <= 5) && (board[i][j] == truePlayer && board[i+1][j] == truePlayer && board[i+2][j] == truePlayer && //Down...up is irrelevant
-                    board[i+1][j] == truePlayer)) {
+                    board[i+3][j] == truePlayer)) {
                     return true;
                 }
 
