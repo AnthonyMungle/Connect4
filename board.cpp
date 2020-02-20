@@ -176,3 +176,7 @@ bool Board::hasWon() {
 
     return false;
 }
+
+std::vector<std::vector<std::string>> Board::getBoard() {
+    return board;
+}

@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include "computer.hpp"
 
 class Board {
 
@@ -19,6 +20,7 @@ private:
     std::string playerTwo = "[O]";
     std::string truePlayer = "[ ]";
     std::vector<std::vector<std::string>> board;
+    Computer computer;
 
 public:
     Board(int blocks);
@@ -27,6 +29,7 @@ public:
     void updateBoard(int numberOfRows);
     bool isValidMove(int rowToMove);
     bool hasWon();
+    std::vector <std::vector<std::string>> getBoard();
 
 };
 #endif //BOARD_HPP
