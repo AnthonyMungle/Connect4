@@ -150,17 +150,24 @@ bool Board::hasWon() {
     int i = rowChoice;
     int j = columnChoice;
 
-
                 if ((j -3 >=0)&& (board[i][j] == truePlayer && board[i][j - 1] == truePlayer && board[i][j - 2] == truePlayer && //Win Right
                     board[i][j - 3] == truePlayer)) {
                     return true;
                 }
-                if ((j +3 <=5)&& (board[i][j] == truePlayer && board[i][j + 1] == truePlayer && board[i][j + 2] == truePlayer && //Win Left
+                if ((j +3 <blocks)&& (board[i][j] == truePlayer && board[i][j + 1] == truePlayer && board[i][j + 2] == truePlayer && //Win Left
                     board[i][j + 3] == truePlayer)) {
                     return true;
                 }
-                if ((i+3 <= 5) && (board[i][j] == truePlayer && board[i+1][j] == truePlayer && board[i+2][j] == truePlayer && //Down...up is irrelevant
+                if ((i+3 < blocks) && (board[i][j] == truePlayer && board[i+1][j] == truePlayer && board[i+2][j] == truePlayer && //Down...up is irrelevant
                     board[i+3][j] == truePlayer)) {
+                    return true;
+                }
+                if ((i+3 < blocks)&& (j+3 < blocks) && (board[i][j] == truePlayer && board[i+1][j+1] == truePlayer && board[i+2][j+2] == truePlayer && // Diagonal down right
+                    board[i+3][j+3] == truePlayer)) {
+                    return true;
+                }
+                if ((i+3 < blocks)&& (j-3 >= 0) && (board[i][j] == truePlayer && board[i+1][j-1] == truePlayer && board[i+2][j-2] == truePlayer && // Diagonal down right
+                     board[i+3][j-3] == truePlayer)) {
                     return true;
                 }
 
