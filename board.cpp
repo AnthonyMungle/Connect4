@@ -116,7 +116,6 @@ void Board::updateBoard(int rowToDrop) {
                         }
                     }
                 }
-
             }
     }
 }
