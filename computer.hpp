@@ -5,12 +5,16 @@
 #ifndef CONNECT4_COMPUTER_HPP
 #define CONNECT4_COMPUTER_HPP
 
+#include <vector>
+
 class Computer {
 
 private:
+    std::vector<std::vector<std::string>> board;
 
 public:
-    void getBoard();
+    Computer();
+    void updateBoard(std::vector<std::vector<std::string>> board);
 
 };
 

@@ -3,14 +3,19 @@
 //
 #include <iostream>
 #include "board.hpp"
+#include "computer.hpp"
 
 
 
-
-Board::Board(int blocks) {
+Board::Board(int blocks, char computerPlayer) {
+    if(computerPlayer == 'y'){
+        this->isComputer = true;
+    } else{
+        this->isComputer = false;
+    }
     this->blocks = blocks;
     this->board.resize(blocks, std::vector<std::string>(blocks, "[ ]"));
-    playerTurn = 1;
+    this->playerTurn = 1;
 
 
 }
@@ -44,69 +49,88 @@ void Board::updateBoard(int rowToDrop) {
     } else {
         this->truePlayer = this->playerTwo;
     }
+
     while (playerTurnOver == false) {
 
-        if (isValidMove(rowToDrop)) {
-            int row = rowToDrop - 1;
+            if (isValidMove(rowToDrop)) {
+                int row = rowToDrop - 1;
 
-            for (int i = blocks - 1; i >= 0; i--) {
-                for (int j = blocks - 1; j >= 0; j--) {
+                for (int i = blocks - 1; i >= 0; i--) {
+                    for (int j = blocks - 1; j >= 0; j--) {
 
-                    if (j == row && (board[i][j] != playerOne && board[i][j] != playerTwo)) {
-                        board[i][j] = truePlayer;
-                        this->rowChoice = i;
-                        this->columnChoice = j;
-                        playerTurnOver = true;
-                        //Swaps turns
-                        if(!hasWon()) {
-                            if (playerTurn == 1) {
-                                playerTurn = 2;
-                            } else(playerTurn = 1);
+                        if (j == row && (board[i][j] != playerOne && board[i][j] != playerTwo)) {
+                            board[i][j] = truePlayer;
+                            this->rowChoice = i;
+                            this->columnChoice = j;
+                            //Swaps turns
+                            if (!hasWon()) {
+                                if (playerTurn == 1) {
+                                    playerTurn = 2;
+                                    playerTurnOver = true;
+                                } else {
+                                    playerTurn = 1;
+                                    playerTurnOver = true;
+                                }
+                            }
+
+                            return;
                         }
 
-                        return;
+
                     }
-
-
                 }
-            }
-        } else {
-            std::cout << "Invalid move!" << std::endl;
-            std::cin >> rowToDrop;
-            this->columnChoice = rowToDrop;
-            do {
-                if (isValidMove(rowToDrop)) {
-                    playerTurnOver = true;
-                } else {
-                    std::cout << "Invalid move. Please make a different move!" << std::endl;
-                    std::cin >> rowToDrop;
-                    this->columnChoice = rowToDrop;
-                }
-            } while (playerTurnOver == false);
-
-            int row = rowToDrop - 1;
-
-            for (int i = blocks - 1; i >= 0; i--) {
-                for (int j = blocks - 1; j >= 0; j--) {
-
-                    if (j == row && (board[i][j] != playerOne && board[i][j] != playerTwo)) {
-                        board[i][j] = truePlayer;
-                        this->rowChoice = i;
-                        this->columnChoice = j;
+            } else {
+                std::cout << "Invalid move!" << std::endl;
+                std::cin >> rowToDrop;
+                this->columnChoice = rowToDrop;
+                do {
+                    if (isValidMove(rowToDrop)) {
                         playerTurnOver = true;
-                        //Swaps turns
-                        if(!hasWon()) {
-                            if (playerTurn == 1) {
-                                playerTurn = 2;
-                            } else(playerTurn = 1);
-                        }
+                    } else {
+                        std::cout << "Invalid move. Please make a different move!" << std::endl;
+                        std::cin >> rowToDrop;
+                        this->columnChoice = rowToDrop;
+                    }
+                } while (playerTurnOver == false);
 
-                        return;
+                int row = rowToDrop - 1;
+
+                for (int i = blocks - 1; i >= 0; i--) {
+                    for (int j = blocks - 1; j >= 0; j--) {
+
+                        if (j == row && (board[i][j] != playerOne && board[i][j] != playerTwo)) {
+                            board[i][j] = truePlayer;
+                            this->rowChoice = i;
+                            this->columnChoice = j;
+                            //Swaps turns
+                            if (!hasWon()) {
+                                if (playerTurn == 1) {
+                                    playerTurn = 2;
+                                    playerTurnOver = true;
+                                } else {
+                                    playerTurn = 1;
+                                    playerTurnOver = true;
+                                }
+                            }
+                            return;
+                        }
                     }
                 }
-            }
 
-        }
+            }
+    }
+}
+
+void Board::computersTurn() {
+    std::cout<<"computers turn"<<std::endl;
+    computer.updateBoard(board);
+    int rowToDrop;//Will be made by a method in computer.cpp but for now naw;
+    //rowToDrop = computer.makeMove();
+
+    std::cin>>rowToDrop;
+    updateBoard(rowToDrop);
+    if (!hasWon()) {
+        playerTurn = 1;
     }
 }
 
@@ -179,4 +203,8 @@ bool Board::hasWon() {
 
 std::vector<std::vector<std::string>> Board::getBoard() {
     return board;
+}
+
+bool Board::isComputerPlaying() {
+    return isComputer;
 }
