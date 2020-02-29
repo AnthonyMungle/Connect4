@@ -1,41 +1,40 @@
 //
-// Created by Anthony on 1/30/2020.
+// Created by Anthony on 2/28/2020.
 //
 
-#ifndef BOARD_HPP
-#define BOARD_HPP
-
-#include <string>
-#include <vector>
-#include "computer.hpp"
-
-class Board {
+#ifndef UNTITLED5_BOARD_HPP
+#define UNTITLED5_BOARD_HPP
+class Board{
 
 private:
-    int columnChoice;
-    int rowChoice;
-    int blocks;
-    int playerTurn;
+    static const int Max_Row = 7;
+    static const int Max_Col = 8;
+    char x = 'x';
+    char o = 'o';
+    char nothing = ' ';
+    //std::vector<std::vector<int>> board;
     bool isComputer;
-    bool playerTurnOver;
-    std::string playerOne = "[x]";
-    std::string playerTwo = "[O]";
-    std::string truePlayer = "[ ]";
-    std::vector<std::vector<std::string>> board;
-    Computer computer = Computer(0);
+    int playerOne = 1;
+    int playerTwo = 2;
+    int row;
+    int col;
 
 public:
-    Board(int blocks, char playVsComputer);
-    std::string ShowBoard();
-    //int getScore(std::vector<std::vector<std::string>> board;);
-    int getPlayerTurn();
-    void placePiece(int numberOfRows);
-    bool isValidMove(int rowToMove);
-    bool hasWon();
-    bool isComputerPlaying();
-    void computersTurn();
-    void swapTurns();
-    std::vector <std::vector<std::string>> getBoard();
+    Board();
+    bool isComputerTurn();
+    void printBoard(int boardArray[7][8]);
+    void copyArray(int boardArray[7][8], int tempArray[7][8]);
+    void MakeTurn(int gameArray[7][8], int col, int turn);
+    int computerDecision(int gameArray[7][8],int depth);
+    int minPlayer(int gameArray[7][8],int depth);
+    int computer_turn(int gameArray[7][8],int depth);
+    int hasWon(int gameArray[7][8]);
+    int currentMoveScore(int gameArray[7][8]);
+    int getMaxRow();
+    int getMaxCol();
+
 
 };
-#endif //BOARD_HPP
+
+
+#endif //UNTITLED5_BOARD_HPP
