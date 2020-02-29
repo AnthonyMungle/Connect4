@@ -17,21 +17,24 @@ private:
     int blocks;
     int playerTurn;
     bool isComputer;
+    bool playerTurnOver;
     std::string playerOne = "[x]";
     std::string playerTwo = "[O]";
     std::string truePlayer = "[ ]";
     std::vector<std::vector<std::string>> board;
-    Computer computer;
+    Computer computer = Computer(0);
 
 public:
     Board(int blocks, char playVsComputer);
     std::string ShowBoard();
+    //int getScore(std::vector<std::vector<std::string>> board;);
     int getPlayerTurn();
-    void updateBoard(int numberOfRows);
+    void placePiece(int numberOfRows);
     bool isValidMove(int rowToMove);
     bool hasWon();
     bool isComputerPlaying();
     void computersTurn();
+    void swapTurns();
     std::vector <std::vector<std::string>> getBoard();
 
 };

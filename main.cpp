@@ -22,11 +22,11 @@ int main() {
                 std::cout << " Player" << game.getPlayerTurn() << " Turn Select a row to place your symbol."<< std::endl;
                 if(game.isComputerPlaying() == false) {
                     std::cin >>choice;
-                    game.updateBoard(choice);
+                    game.placePiece(choice);
                 }else{
                     if(game.getPlayerTurn() == 1){
                         std::cin >> choice;
-                        game.updateBoard(choice);
+                        game.placePiece(choice);
                     }else{
                         game.computersTurn();
                     }

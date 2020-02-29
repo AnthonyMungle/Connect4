@@ -3,20 +3,20 @@
 //
 #include <iostream>
 #include "board.hpp"
-#include "computer.hpp"
+
 
 
 
 Board::Board(int blocks, char computerPlayer) {
     if(computerPlayer == 'y'){
         this->isComputer = true;
+        this->computer = Computer(blocks);
     } else{
         this->isComputer = false;
     }
     this->blocks = blocks;
-    this->board.resize(blocks, std::vector<std::string>(blocks, "[ ]"));
+    this->board.resize(static_cast<unsigned int>(blocks), std::vector<std::string>(static_cast<unsigned int>(blocks), "[ ]"));
     this->playerTurn = 1;
-
 
 }
 
@@ -42,8 +42,8 @@ std::string Board::ShowBoard() {
     return stringBoard;
 }
 
-void Board::updateBoard(int rowToDrop) {
-    bool playerTurnOver = false;
+void Board::placePiece(int rowToDrop) {
+    this->playerTurnOver = false;
     if (playerTurn == 1) {
         this->truePlayer = this->playerOne;
     } else {
@@ -62,21 +62,13 @@ void Board::updateBoard(int rowToDrop) {
                             board[i][j] = truePlayer;
                             this->rowChoice = i;
                             this->columnChoice = j;
+                            //std::cout<<getScore()<<std::endl;
                             //Swaps turns
                             if (!hasWon()) {
-                                if (playerTurn == 1) {
-                                    playerTurn = 2;
-                                    playerTurnOver = true;
-                                } else {
-                                    playerTurn = 1;
-                                    playerTurnOver = true;
-                                }
+                                swapTurns();
                             }
-
                             return;
                         }
-
-
                     }
                 }
             } else {
@@ -87,7 +79,7 @@ void Board::updateBoard(int rowToDrop) {
                     if (isValidMove(rowToDrop)) {
                         playerTurnOver = true;
                     } else {
-                        std::cout << "Invalid move. Please make a different move!" << std::endl;
+                        std::cout << "Invalid move. Please make board different move!" << std::endl;
                         std::cin >> rowToDrop;
                         this->columnChoice = rowToDrop;
                     }
@@ -104,13 +96,7 @@ void Board::updateBoard(int rowToDrop) {
                             this->columnChoice = j;
                             //Swaps turns
                             if (!hasWon()) {
-                                if (playerTurn == 1) {
-                                    playerTurn = 2;
-                                    playerTurnOver = true;
-                                } else {
-                                    playerTurn = 1;
-                                    playerTurnOver = true;
-                                }
+                                swapTurns();
                             }
                             return;
                         }
@@ -118,22 +104,37 @@ void Board::updateBoard(int rowToDrop) {
                 }
             }
     }
+
 }
 
+
+void Board::swapTurns() {
+    if (playerTurn == 1) {
+        playerTurn = 2;
+        playerTurnOver = true;
+    } else {
+        playerTurn = 1;
+        playerTurnOver = true;
+    }
+}
 void Board::computersTurn() {
     std::cout<<"computers turn"<<std::endl;
-    computer.updateBoard(board);
-    int rowToDrop;//Will be made by a method in computer.cpp but for now naw;
-    //rowToDrop = computer.makeMove();
-
-    std::cin>>rowToDrop;
-    updateBoard(rowToDrop);
+    std::vector<int> tempVector(0);
+ /*   for(int i = 0; i <= blocks; i++){
+        if(isValidMove(i)){
+            tempVector.resize(i, i);
+        }
+    }
+    */
+    computer.updateBoard(getBoard());//, tempVector);
+    int colToDrop = 0;
+    //depth to search
+    colToDrop = computer.getColumnChoice(board, 7);
+    placePiece(colToDrop);
     if (!hasWon()) {
         playerTurn = 1;
     }
 }
-
-
 
 bool Board::isValidMove(int rowToMove) {
     int amountInRow = 0;
@@ -159,7 +160,6 @@ bool Board::isValidMove(int rowToMove) {
     if(amountInRow == blocks){
         isCorrectMove = false;
     }
-
     return isCorrectMove;
 }
 
@@ -168,8 +168,6 @@ int Board::getPlayerTurn() {
 }
 
 bool Board::hasWon() {
-
-
     int i = rowChoice;
     int j = columnChoice;
 
@@ -189,14 +187,10 @@ bool Board::hasWon() {
                     board[i+3][j+3] == truePlayer)) {
                     return true;
                 }
-                if ((i+3 < blocks)&& (j-3 >= 0) && (board[i][j] == truePlayer && board[i+1][j-1] == truePlayer && board[i+2][j-2] == truePlayer && // Diagonal down right
+                if ((i+3 < blocks)&& (j-3 >= 0) && (board[i][j] == truePlayer && board[i+1][j-1] == truePlayer && board[i+2][j-2] == truePlayer && // Diagonal down left
                      board[i+3][j-3] == truePlayer)) {
                     return true;
                 }
-
-
-
-
     return false;
 }
 
@@ -207,3 +201,5 @@ std::vector<std::vector<std::string>> Board::getBoard() {
 bool Board::isComputerPlaying() {
     return isComputer;
 }
+
+
