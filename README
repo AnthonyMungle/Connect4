@@ -4,3 +4,9 @@ Team:
 Anthony Mungle & Akash Addiga
 
 In order to compile type 'make' in console directory and run the program by typing './output'
+
+Directions:
+Enter player name
+Select AI difficulty
+Make move by typing the column number
+Player is 'o' and ai is 'x'
