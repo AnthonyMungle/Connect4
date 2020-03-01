@@ -1,6 +1,4 @@
-//
-// Created by Anthony on 2/28/2020.
-//
+
 #include<bits/stdc++.h>
 #include "board.hpp"
 

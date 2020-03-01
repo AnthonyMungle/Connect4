@@ -1,6 +1,4 @@
-//
-// Created by Anthony on 2/28/2020.
-//
+
 
 #ifndef UNTITLED5_BOARD_HPP
 #define UNTITLED5_BOARD_HPP

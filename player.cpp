@@ -1,11 +1,9 @@
-//
-// Created by Anthony on 2/4/2020.
-//
+
 
 #include "player.hpp"
 
 Player::Player(std::string name, bool isComputer){
-    
+
     this->playerName = name;
     this->isComputer = isComputer;
 }
