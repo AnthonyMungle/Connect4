@@ -144,13 +144,10 @@ def winCheck(board):
         return hasWon, slope, positiveCount, negativeCount
 
 
-    #initialize the variables
+
     gameOver = False
-    slope = None
-    verticalCount   = 0
-    horizontalCount = 0
-    positiveCount   = 0
-    negativeCount   = 0
+
+
     for rowIndex in range(HEIGHT):
         for colIndex in range(WIDTH):
             if board[rowIndex][colIndex] != ' ':
@@ -186,10 +183,6 @@ def printBoard(Board):
             if str(Board[i][j]) == 'x':
                 print("[ " + str(Board[i][j]), end=" ")
             elif str(Board[i][j]) == 'o':
-                print("[ " + str(Board[i][j]), end=" ")
-            elif str(Board[i][j]) == 'X':
-                print("[ " + str(Board[i][j]), end=" ")
-            elif str(Board[i][j]) == 'O':
                 print("[ " + str(Board[i][j]), end=" ")
             else:
                 print("[ " + str(Board[i][j]), end=" ")
