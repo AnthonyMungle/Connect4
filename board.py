@@ -86,7 +86,6 @@ def winCheck(board):
         return hasWon, count
 
     def diagonalPos(row,col):
-        # check for diagonals with positive slope
         slope = None
         count = 0
         colIndex = col
@@ -97,7 +96,7 @@ def winCheck(board):
                 count += 1
             else:
                 break
-            colIndex += 1 # increment column when row is incremented
+            colIndex += 1
 
         if count >= 4:
             slope = 'positive'
@@ -106,7 +105,7 @@ def winCheck(board):
 
 
     def diagonalNeg(row, col):
-        # check for diagonals with positive slope
+
         slope = None
         count = 0
         colIndex = col

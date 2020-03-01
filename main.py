@@ -18,7 +18,7 @@ def aiTurn(board, depth):
 def aiHasWon(board):
     printBoard(board)
     print('                     ' + "Computer has won\n")
-    rematch = True if input('Would you like to play again? y/n').lower() == 'y' else False
+    rematch = True if input('Would you like to play? y/n').lower() == 'y' else False
     if rematch:
         mainFunction()
     return 0
@@ -47,7 +47,7 @@ def playerTurn(board):
 def playerHasWon(board):
     printBoard(board)
     print('                    ' + "player wins\n")
-    rematch = True if input('Would you like to play again? y/n').lower() == 'y' else False
+    rematch = True if input('Would you like to play? y/n').lower() == 'y' else False
     if rematch:
         mainFunction()
     return 0
@@ -78,10 +78,7 @@ def mainFunction():
     printBoard(board)
     depth = getDepth()
     whileCondition = 1
-    if load == True:
-        whomStart = True
-    else:
-        whomStart = True if input('Would you like to start? y/n').lower() == 'y' else False
+
     if board == None:
         board = initBoard()
 
@@ -89,8 +86,6 @@ def mainFunction():
         if isFilled(board):
             print("GAME OVER\n")
             break
-
-        if whomStart:
 
             board, playerWin = playerTurn(board)
             if playerWin:
