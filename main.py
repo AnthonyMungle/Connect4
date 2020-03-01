@@ -10,9 +10,9 @@ def loadBoard():
 def aiTurn(board, depth):
     aiMove = AlphaBetaPruning(board, depth, AI)
     board = currentMove(board, aiMove, AI)[0]
-    aiFourInRow = winCheck(board)
+    aiWin = winCheck(board)
 
-    return board, aiFourInRow
+    return board, aiWin
 
 
 def aiHasWon(board):
@@ -98,8 +98,8 @@ def mainFunction():
                 if whileCondition == 0:
                     break
 
-            board, aiFourInRow = aiTurn(board, depth)
-            if aiFourInRow:
+            board, aiWin = aiTurn(board, depth)
+            if aiWin:
                 whileCondition = aiHasWon(board)
                 if whileCondition == 0:
                     break
@@ -108,8 +108,8 @@ def mainFunction():
 
         else:
 
-            board, aiFourInRow = aiTurn(board, depth)
-            if aiFourInRow:
+            board, aiWin = aiTurn(board, depth)
+            if aiWin:
                 whileCondition = aiHasWon(board)
                 if whileCondition == 0:
                     break
