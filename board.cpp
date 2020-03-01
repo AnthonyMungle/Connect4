@@ -10,19 +10,19 @@ Board::Board(){
 }
 //prints the Board to the screen with every move
 void Board::printBoard(int boardArray[Max_Row][Max_Col]){
-    char boardPeices;
+    char boardPieces;
 
     //Space in between next board
     std::cout<<std::endl;
     for (int i = 1; i <= row-1; ++i){
         for (int j = 1; j <= col-1; ++j)
         {	if(boardArray[i][j] == 0)
-                boardPeices = nothing;
+                boardPieces = nothing;
             if(boardArray[i][j] == 1)
-                boardPeices = o;
+                boardPieces = o;
             if(boardArray[i][j] == 2)
-                boardPeices = x;
-            std::cout<<" [ "<< boardPeices;
+                boardPieces = x;
+            std::cout<<" [ "<< boardPieces;
         }
         std::cout<<" ] "<<std::endl;
     }
@@ -225,7 +225,7 @@ int Board::currentMoveScore(int arrayBoard[Max_Row][Max_Col]){
     return 0;
 }
 
-//Needed to make temperary moves for scoring
+//Needed to make temporary moves for scoring
 void Board::copyArray(int boardArray[Max_Row][Max_Col], int tempArray[Max_Row][Max_Col]){
     for (int i = 1; i <= row-1; ++i){
         for (int j = 1; j <= col-1; ++j){
