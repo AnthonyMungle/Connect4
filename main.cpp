@@ -8,8 +8,8 @@ int main(){
 
         Board game;
         int boardArray[7][8] = {0};//boardArray is the initial board
-        int AiLevel; // Will be inputed by player is used to determine the depth of the computers choice also variety in moves
-        int col; //will be inputed by the first player
+        int AiLevel; // Will be input by player is used to determine the depth of the computers choice also variety in moves
+        int col; //will be input by the first player
         int turnNumber=0;//turn is the amount of turns taken will be compared with maxTurns to end the game if draw occurs
         int maxTurns=42;
 
@@ -27,7 +27,7 @@ int main(){
         game.printBoard(boardArray);
 
         //plays as long as turns dont run out
-        //checks if the value inputed is also valid
+        //checks if the value input is also valid
         while (turnNumber < maxTurns) {
 
             //Players turn determined by even number of turnsNumber
@@ -40,7 +40,7 @@ int main(){
                 }
                 game.MakeTurn(boardArray, col, turnNumber);
 
-                //computers turn if choicce == -1 then it becomes a draw
+                //computers turn if choice == -1 then it becomes a draw
             } else {
                 int choice;
                 choice = game.computerDecision(boardArray, AiLevel);
@@ -67,7 +67,7 @@ int main(){
             }
             turnNumber = turnNumber + 1;
         }
-        std::cout<<"Would you like to play agian? y/n"<<std::endl;
+        std::cout<<"Would you like to play again? y/n"<<std::endl;
         std::cin>>playAgain;
         std::cout<<std::endl;
     }
