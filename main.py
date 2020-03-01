@@ -40,8 +40,8 @@ def playerTurn(board):
         return playerTurn(board)
 
     board = currentMove(board, playerMove, PLAYER)[0]
-    playerFourInRow = winCheck(board)
-    return board, playerFourInRow
+    playerWin = winCheck(board)
+    return board, playerWin
 
 
 def playerHasWon(board):
@@ -92,8 +92,8 @@ def mainFunction():
 
         if whomStart:
 
-            board, playerFourInRow = playerTurn(board)
-            if playerFourInRow:
+            board, playerWin = playerTurn(board)
+            if playerWin:
                 whileCondition = playerHasWon(board)
                 if whileCondition == 0:
                     break
@@ -115,8 +115,8 @@ def mainFunction():
                     break
             printBoard(board)
 
-            board, playerFourInRow = playerTurn(board)
-            if playerFourInRow:
+            board, playerWin = playerTurn(board)
+            if playerWin:
                 whileCondition = playerHasWon(board)
 
                 if whileCondition == 0:
